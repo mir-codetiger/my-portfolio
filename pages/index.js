@@ -4,20 +4,30 @@ import utilStyles from '../styles/utils.module.css'
 import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
+import { useEffect, useState } from 'react'
 
 export default function Home({ allPostsData }) {
+
+  const [imageUrl, setImageUrl] = useState('');
+
+  useEffect(() => {
+    fetch("https://randomfox.ca/floof/").then((response) => response.json().then((data) => setImageUrl(data.image)))
+  }, [])
   return (
     <Layout home>
       <Head>
-        <title>{siteTitle}</title>
+        <title>Mir's Blog</title>
       </Head>
       <section className={utilStyles.headingMd}>
-        <p>[Your Self Introduction]</p>
+        <p>Hi, i'm Mir. I'm a software engineer and I'm passionate about technology, education, and ecology</p>
         <p>
-          (This is a sample website - you’ll be building a site like this in{' '}
-          <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
+          Here's a link to my github - <a href="https://github.com/mir-codetiger" target="_blank">@mir-codetiger</a>
         </p>
       </section>
+
+      <p>also, here's a cute image of a fox:</p>
+      <img src={imageUrl} />
+
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
